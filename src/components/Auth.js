@@ -11,12 +11,34 @@ function Auth() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [error, setError] = useState("");
+
   const signup = async () => {
-    await createUserWithEmailAndPassword(auth, email, password);
+    try {
+      setError("");
+
+      await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   const login = async () => {
-    await signInWithEmailAndPassword(auth, email, password);
+    try {
+      setError("");
+
+      await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   return (
@@ -49,7 +71,9 @@ function Auth() {
           type="email"
           placeholder="Email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) =>
+            setEmail(e.target.value)
+          }
         />
 
         <input
@@ -57,16 +81,30 @@ function Auth() {
           type="password"
           placeholder="Password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) =>
+            setPassword(e.target.value)
+          }
         />
 
-        <button style={styles.button} onClick={login}>
+        <button
+          style={styles.button}
+          onClick={login}
+        >
           Login
         </button>
 
-        <button style={styles.secondaryButton} onClick={signup}>
+        <button
+          style={styles.secondaryButton}
+          onClick={signup}
+        >
           Create Account
         </button>
+
+        {error && (
+          <p style={styles.error}>
+            {error}
+          </p>
+        )}
       </div>
     </div>
   );
@@ -92,7 +130,8 @@ const styles = {
     position: "absolute",
     top: "50%",
     left: "50%",
-    transform: "translate(-50%, -50%)",
+    transform:
+      "translate(-50%, -50%)",
   },
 
   card: {
@@ -109,7 +148,8 @@ const styles = {
   },
 
   logo: {
-    fontFamily: "'Playfair Display', serif",
+    fontFamily:
+      "'Playfair Display', serif",
     fontSize: "64px",
     margin: "0",
     color: "#0A1430",
@@ -179,6 +219,13 @@ const styles = {
     fontSize: "15px",
     cursor: "pointer",
     marginTop: "12px",
+  },
+
+  error: {
+    color: "#B00020",
+    marginTop: "16px",
+    fontSize: "13px",
+    fontWeight: "700",
   },
 };
 
