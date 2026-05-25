@@ -113,106 +113,155 @@ function ShopProfile({
 
       <style>
         {`
-          @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+          @media (max-width: 900px) {
+            .profile-layout {
+              grid-template-columns: 1fr !important;
+            }
+
+            .profile-hero h1 {
+              font-size: 46px !important;
+            }
+          }
+
+          @media (max-width: 520px) {
+            .profile-page {
+              padding: 18px !important;
+            }
+
+            .profile-card,
+            .profile-hero {
+              padding: 24px !important;
+              border-radius: 24px !important;
+            }
+
+            .profile-hero h1 {
+              font-size: 36px !important;
+            }
+          }
         `}
       </style>
 
-      <div style={styles.glow}></div>
+      <div className="profile-layout" style={styles.layout}>
 
-      <div style={styles.card}>
-
-        <div style={styles.initialsCircle}>
-          {initials}
-        </div>
-
-        <h1 style={styles.logo}>
-          SellSights
-        </h1>
-
-        <p style={styles.subtitle}>
-          your shop, in numbers
-        </p>
-
-        <div style={styles.divider}></div>
-
-        <p style={styles.welcomeText}>
-          Welcome back,
-        </p>
-
-        {savedShopName ? (
-
-          <>
-
-            <h2 style={styles.shopName}>
-              {savedShopName}
-            </h2>
-
-            <div style={styles.timeBlock}>
-
-              <p style={styles.date}>
-                {time.toLocaleDateString(
-                  "en-IN",
-                  {
-                    weekday: "long",
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric",
-                  }
-                )}
-              </p>
-
-              <p style={styles.time}>
-                {time.toLocaleTimeString(
-                  "en-IN",
-                  {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    second: "2-digit",
-                  }
-                )}
-              </p>
-
-            </div>
-
-            <p style={styles.email}>
-              {user.email}
+        <section className="profile-hero" style={styles.hero}>
+          <div>
+            <p style={styles.eyebrow}>SellSights</p>
+            <h1 style={styles.heroTitle}>
+              Your shop command center is ready.
+            </h1>
+            <p style={styles.heroText}>
+              Set your workspace name, then move into a clean dashboard for inventory, sales, revenue, and profit.
             </p>
+          </div>
 
-            <button
-              style={styles.button}
-              onClick={onEnterDashboard}
-            >
-              Enter Dashboard
-            </button>
+          <div style={styles.infoGrid}>
+            <div style={styles.infoCard}>
+              <span style={styles.infoLabel}>Account</span>
+              <strong style={styles.infoValue}>{user.email}</strong>
+            </div>
+            <div style={styles.infoCard}>
+              <span style={styles.infoLabel}>Workspace</span>
+              <strong style={styles.infoValue}>{savedShopName || "Not set"}</strong>
+            </div>
+          </div>
+        </section>
 
-          </>
+        <section className="profile-card" style={styles.card}>
 
-        ) : (
+          <div style={styles.initialsCircle}>
+            {initials}
+          </div>
 
-          <>
+          <p style={styles.eyebrow}>
+            Welcome back
+          </p>
 
-            <input
-              style={styles.input}
-              type="text"
-              placeholder="Enter your shop name"
-              value={shopName}
-              onChange={(e) =>
-                setShopName(
-                  e.target.value
-                )
-              }
-            />
+          {savedShopName ? (
 
-            <button
-              style={styles.button}
-              onClick={saveShopName}
-            >
-              Save Shop Name
-            </button>
+            <>
 
-          </>
+              <h2 style={styles.shopName}>
+                {savedShopName}
+              </h2>
 
-        )}
+              <div style={styles.timeBlock}>
+
+                <p style={styles.date}>
+                  {time.toLocaleDateString(
+                    "en-IN",
+                    {
+                      weekday: "long",
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric",
+                    }
+                  )}
+                </p>
+
+                <p style={styles.time}>
+                  {time.toLocaleTimeString(
+                    "en-IN",
+                    {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      second: "2-digit",
+                    }
+                  )}
+                </p>
+
+              </div>
+
+              <p style={styles.email}>
+                {user.email}
+              </p>
+
+              <button
+                style={styles.button}
+                onClick={onEnterDashboard}
+              >
+                Enter Dashboard
+              </button>
+
+            </>
+
+          ) : (
+
+            <>
+
+              <h2 style={styles.title}>
+                Name your workspace
+              </h2>
+
+              <p style={styles.text}>
+                This name appears in your dashboard and helps personalize your shop view.
+              </p>
+
+              <input
+                style={styles.input}
+                type="text"
+                placeholder="Enter your shop name"
+                value={shopName}
+                onChange={(e) =>
+                  setShopName(
+                    e.target.value
+                  )
+                }
+              />
+
+              <button
+                style={styles.button}
+                onClick={saveShopName}
+              >
+                Save Shop Name
+              </button>
+
+            </>
+
+          )}
+
+        </section>
 
       </div>
 
@@ -224,212 +273,191 @@ const styles = {
 
   page: {
     minHeight: "100vh",
-
-    backgroundColor: "#0A1430",
-
-    display: "flex",
-
-    alignItems: "center",
-
-    justifyContent: "center",
-
-    position: "relative",
-
-    overflow: "hidden",
-
+    backgroundColor: "#f4f6f1",
+    display: "grid",
+    placeItems: "center",
+    padding: "34px",
     fontFamily: "Inter, sans-serif",
+    color: "#17211b",
   },
 
-  glow: {
-    width: "500px",
+  layout: {
+    width: "min(1080px, 100%)",
+    display: "grid",
+    gridTemplateColumns: "minmax(0, 1fr) minmax(340px, 430px)",
+    gap: "24px",
+    alignItems: "stretch",
+  },
 
-    height: "500px",
+  hero: {
+    minHeight: "560px",
+    borderRadius: "30px",
+    padding: "42px",
+    backgroundColor: "#ffffff",
+    border: "1px solid #e5eadf",
+    boxShadow: "0 18px 45px rgba(26, 36, 28, 0.08)",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+  },
 
-    background:
-      "radial-gradient(circle, rgba(232,217,181,0.22) 0%, rgba(10,20,48,0) 70%)",
+  eyebrow: {
+    margin: "0 0 14px",
+    color: "#8fdc22",
+    fontSize: "12px",
+    fontWeight: "800",
+    letterSpacing: "0",
+    textTransform: "uppercase",
+  },
 
-    position: "absolute",
+  heroTitle: {
+    maxWidth: "650px",
+    margin: "0",
+    fontSize: "58px",
+    lineHeight: "1",
+    letterSpacing: "0",
+    color: "#17211b",
+  },
 
-    top: "50%",
+  heroText: {
+    maxWidth: "560px",
+    margin: "22px 0 0",
+    color: "#6d766f",
+    fontSize: "16px",
+    lineHeight: "1.7",
+  },
 
-    left: "50%",
+  infoGrid: {
+    display: "grid",
+    gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+    gap: "14px",
+    marginTop: "34px",
+  },
 
-    transform:
-      "translate(-50%, -50%)",
+  infoCard: {
+    minHeight: "112px",
+    borderRadius: "22px",
+    border: "1px solid #e5eadf",
+    backgroundColor: "#f8faf4",
+    padding: "18px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    minWidth: 0,
+  },
+
+  infoLabel: {
+    color: "#6d766f",
+    fontSize: "12px",
+    fontWeight: "800",
+    textTransform: "uppercase",
+  },
+
+  infoValue: {
+    color: "#17211b",
+    fontSize: "15px",
+    overflowWrap: "anywhere",
   },
 
   card: {
-    width: "500px",
-
-    backgroundColor: "#F7F3EA",
-
-    border: "3px solid #11172F",
-
-    borderRadius: "28px",
-
-    padding: "42px",
-
-    boxShadow:
-      "8px 10px 0px #11172F",
-
-    color: "#0A1430",
-
+    borderRadius: "30px",
+    padding: "34px",
+    backgroundColor: "#ffffff",
+    border: "1px solid #e5eadf",
+    boxShadow: "0 18px 45px rgba(26, 36, 28, 0.08)",
+    alignSelf: "center",
     textAlign: "center",
-
-    position: "relative",
-
-    zIndex: 2,
   },
 
   initialsCircle: {
-    width: "90px",
-
-    height: "90px",
-
-    borderRadius: "50%",
-
-    backgroundColor: "#11172F",
-
-    color: "#F7F3EA",
-
+    width: "76px",
+    height: "76px",
+    borderRadius: "24px",
+    backgroundColor: "#b8f24b",
+    color: "#17211b",
     display: "flex",
-
     alignItems: "center",
-
     justifyContent: "center",
+    margin: "0 auto 24px",
+    fontSize: "24px",
+    fontWeight: "800",
+    letterSpacing: "0",
+  },
 
-    margin: "0 auto 22px auto",
-
+  title: {
+    margin: "0",
     fontSize: "30px",
-
-    fontWeight: "700",
-
-    letterSpacing: "1px",
+    lineHeight: "1.15",
+    color: "#17211b",
   },
 
-  logo: {
-    fontFamily:
-      "'Playfair Display', serif",
-
-    fontSize: "68px",
-
-    margin: "0",
-
-    color: "#0A1430",
-
-    letterSpacing: "-2px",
-
-    lineHeight: "1",
-  },
-
-  subtitle: {
-    marginTop: "8px",
-
-    color: "#444B6E",
-
-    fontSize: "18px",
-
-    fontStyle: "italic",
-  },
-
-  divider: {
-    width: "100%",
-
-    height: "2px",
-
-    backgroundColor: "#D9CFB4",
-
-    margin: "28px 0",
-  },
-
-  welcomeText: {
-    margin: "0",
-
-    fontSize: "18px",
-
-    color: "#444B6E",
+  text: {
+    margin: "12px 0 24px",
+    color: "#6d766f",
+    fontSize: "14px",
+    lineHeight: "1.6",
   },
 
   shopName: {
-    marginTop: "10px",
-
-    marginBottom: "24px",
-
-    fontSize: "38px",
-
-    color: "#0A1430",
+    margin: "0 0 24px",
+    fontSize: "34px",
+    color: "#17211b",
+    lineHeight: "1.1",
+    overflowWrap: "anywhere",
   },
 
   timeBlock: {
     marginBottom: "24px",
+    borderRadius: "22px",
+    backgroundColor: "#f8faf4",
+    border: "1px solid #e5eadf",
+    padding: "18px",
   },
 
   date: {
     margin: "0",
-
-    fontSize: "15px",
-
-    color: "#444B6E",
+    fontSize: "14px",
+    color: "#6d766f",
   },
 
   time: {
-    marginTop: "8px",
-
-    fontSize: "34px",
-
-    fontWeight: "700",
-
-    color: "#0A1430",
+    margin: "8px 0 0",
+    fontSize: "32px",
+    fontWeight: "800",
+    color: "#17211b",
   },
 
   email: {
     fontSize: "13px",
-
-    color: "#666",
-
-    marginBottom: "28px",
+    color: "#6d766f",
+    margin: "0 0 28px",
+    overflowWrap: "anywhere",
   },
 
   input: {
     width: "100%",
-
     padding: "14px 16px",
-
-    marginBottom: "18px",
-
+    marginBottom: "14px",
     borderRadius: "14px",
-
-    border: "2px solid #11172F",
-
+    border: "1px solid #dfe6d8",
     fontSize: "15px",
-
     boxSizing: "border-box",
-
-    backgroundColor: "#FFFDF7",
-
-    color: "#0A1430",
+    backgroundColor: "#f8faf4",
+    color: "#17211b",
+    outline: "none",
   },
 
   button: {
     width: "100%",
-
     padding: "15px",
-
     borderRadius: "999px",
-
     border: "none",
-
-    backgroundColor: "#11172F",
-
-    color: "#F7F3EA",
-
+    backgroundColor: "#17211b",
+    color: "#ffffff",
     fontWeight: "800",
-
     fontSize: "15px",
-
     cursor: "pointer",
-
-    transition: "all 0.2s ease",
+    boxShadow: "0 12px 26px rgba(23, 33, 27, 0.16)",
   },
 };
 
