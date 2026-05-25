@@ -1,17 +1,16 @@
 import {
   useEffect,
   useState,
-  useCallback,
 } from "react";
 
 import { db, auth } from "./firebase";
 
 import {
   collection,
-  getDocs,
   deleteDoc,
   doc,
   getDoc,
+  onSnapshot,
 } from "firebase/firestore";
 
 import {
@@ -35,51 +34,9 @@ function App() {
   const [shopName, setShopName] = useState("");
   const [showDashboard, setShowDashboard] = useState(false);
 
-  const fetchProducts = useCallback(
-    async (currentUser = user) => {
-      if (!currentUser) return;
+  const fetchProducts = async () => {};
 
-      const snap = await getDocs(
-        collection(
-          db,
-          "users",
-          currentUser.uid,
-          "products"
-        )
-      );
-
-      setProducts(
-        snap.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }))
-      );
-    },
-    [user]
-  );
-
-  const fetchSales = useCallback(
-    async (currentUser = user) => {
-      if (!currentUser) return;
-
-      const snap = await getDocs(
-        collection(
-          db,
-          "users",
-          currentUser.uid,
-          "sales"
-        )
-      );
-
-      setSales(
-        snap.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }))
-      );
-    },
-    [user]
-  );
+  const fetchSales = async () => {};
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(
@@ -103,8 +60,6 @@ function App() {
             }
           });
 
-          fetchProducts(currentUser);
-          fetchSales(currentUser);
         } else {
           setProducts([]);
           setSales([]);
@@ -114,7 +69,54 @@ function App() {
     );
 
     return () => unsubscribe();
-  }, [fetchProducts, fetchSales]);
+  }, []);
+
+  useEffect(() => {
+    if (!user) return;
+
+    const productsRef = collection(
+      db,
+      "users",
+      user.uid,
+      "products"
+    );
+
+    const salesRef = collection(
+      db,
+      "users",
+      user.uid,
+      "sales"
+    );
+
+    const unsubscribeProducts = onSnapshot(
+      productsRef,
+      (snap) => {
+        setProducts(
+          snap.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }))
+        );
+      }
+    );
+
+    const unsubscribeSales = onSnapshot(
+      salesRef,
+      (snap) => {
+        setSales(
+          snap.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }))
+        );
+      }
+    );
+
+    return () => {
+      unsubscribeProducts();
+      unsubscribeSales();
+    };
+  }, [user]);
 
   const deleteProduct = async (id) => {
     if (!user) return;
@@ -129,7 +131,6 @@ function App() {
       )
     );
 
-    await fetchProducts();
   };
 
   const logout = async () => {
