@@ -13,6 +13,13 @@ function AnalyticsPanel({
 
     <div style={styles.analyticsWrap}>
 
+      <div style={styles.sectionHeader}>
+        <div>
+          <p style={styles.kicker}>Analytics</p>
+          <h2 style={styles.title}>Performance snapshot</h2>
+        </div>
+      </div>
+
       <div style={styles.topRow}>
 
         <div style={styles.chartCard}>
@@ -49,52 +56,53 @@ const styles = {
 
   analyticsWrap: {
     display: "flex",
-
     flexDirection: "column",
+    gap: "16px",
+    width: "100%",
+  },
 
-    gap: "18px",
+  sectionHeader: {
+    display: "flex",
+    alignItems: "flex-start",
+    justifyContent: "space-between",
+    gap: "16px",
+  },
 
-    width: "fit-content",
+  kicker: {
+    margin: "0 0 8px",
+    color: "#8fdc22",
+    fontSize: "12px",
+    fontWeight: "800",
+    textTransform: "uppercase",
+  },
+
+  title: {
+    margin: "0",
+    color: "#17211b",
+    fontSize: "22px",
+    lineHeight: "1.2",
   },
 
   topRow: {
-    display: "flex",
-
-    gap: "18px",
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+    gap: "16px",
   },
 
   chartCard: {
-    width: "380px",
-
-    backgroundColor: "#FDFBF4",
-
-    border: "3px solid #11172F",
-
-    borderRadius: "18px",
-
-    padding: "20px",
-
-    boxSizing: "border-box",
-
-    boxShadow:
-      "5px 6px 0px #11172F",
+    minWidth: 0,
+    backgroundColor: "#f8faf4",
+    border: "1px solid #e5eadf",
+    borderRadius: "20px",
+    padding: "18px",
   },
 
   revenueCard: {
-    width: "778px",
-
-    backgroundColor: "#FDFBF4",
-
-    border: "3px solid #11172F",
-
-    borderRadius: "18px",
-
-    padding: "20px",
-
-    boxSizing: "border-box",
-
-    boxShadow:
-      "5px 6px 0px #11172F",
+    minWidth: 0,
+    backgroundColor: "#f8faf4",
+    border: "1px solid #e5eadf",
+    borderRadius: "20px",
+    padding: "18px",
   },
 };
 

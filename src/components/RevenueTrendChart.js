@@ -7,6 +7,7 @@ import {
   YAxis,
   Tooltip,
   CartesianGrid,
+  ResponsiveContainer,
 } from "recharts";
 
 function RevenueTrendChart({
@@ -18,7 +19,6 @@ function RevenueTrendChart({
 
   const now = new Date();
 
-  // FILTER SALES
   const filteredSales = sales.filter(
     (s) => {
 
@@ -49,7 +49,6 @@ function RevenueTrendChart({
     }
   );
 
-  // REVENUE MAP
   const revenueMap = {};
 
   filteredSales.forEach((s) => {
@@ -67,7 +66,6 @@ function RevenueTrendChart({
 
   });
 
-  // SORT REVENUE DATA
   const revenueData = Object.keys(
     revenueMap
   )
@@ -84,59 +82,110 @@ function RevenueTrendChart({
   return (
     <div>
 
-      <h3>Revenue Trend</h3>
+      <div style={styles.header}>
+        <h3 style={styles.title}>Revenue Trend</h3>
 
-      <div style={styles.toggle}>
+        <div style={styles.toggle}>
 
-        <button
-          onClick={() =>
-            setView("week")
-          }
-        >
-          Weekly
-        </button>
+          <button
+            style={{
+              ...styles.toggleButton,
+              ...(view === "week" ? styles.activeButton : {}),
+            }}
+            onClick={() =>
+              setView("week")
+            }
+          >
+            Weekly
+          </button>
 
-        <button
-          onClick={() =>
-            setView("month")
-          }
-        >
-          Monthly
-        </button>
+          <button
+            style={{
+              ...styles.toggleButton,
+              ...(view === "month" ? styles.activeButton : {}),
+            }}
+            onClick={() =>
+              setView("month")
+            }
+          >
+            Monthly
+          </button>
 
+        </div>
       </div>
 
-      <LineChart
-        width={350}
-        height={250}
-        data={revenueData}
-      >
+      <div style={styles.chartFrame}>
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart data={revenueData}>
 
-        <XAxis dataKey="date" />
+            <XAxis dataKey="date" tick={{ fontSize: 11 }} />
 
-        <YAxis />
+            <YAxis tick={{ fontSize: 11 }} />
 
-        <Tooltip />
+            <Tooltip />
 
-        <CartesianGrid stroke="#ccc" />
+            <CartesianGrid stroke="#e5eadf" vertical={false} />
 
-        <Line
-          type="monotone"
-          dataKey="revenue"
-          stroke="#82ca9d"
-        />
+            <Line
+              type="monotone"
+              dataKey="revenue"
+              stroke="#8fdc22"
+              strokeWidth={3}
+              dot={{ r: 4, fill: "#17211b", strokeWidth: 0 }}
+            />
 
-      </LineChart>
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
 
     </div>
   );
 }
 
 const styles = {
+  header: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: "12px",
+    marginBottom: "14px",
+    flexWrap: "wrap",
+  },
+
+  title: {
+    margin: "0",
+    color: "#17211b",
+    fontSize: "16px",
+  },
+
   toggle: {
     display: "flex",
-    gap: "10px",
-    marginBottom: "10px",
+    gap: "6px",
+    padding: "4px",
+    borderRadius: "999px",
+    backgroundColor: "#ffffff",
+    border: "1px solid #e5eadf",
+  },
+
+  toggleButton: {
+    border: "none",
+    borderRadius: "999px",
+    padding: "8px 12px",
+    backgroundColor: "transparent",
+    color: "#6d766f",
+    fontSize: "12px",
+    fontWeight: "800",
+    cursor: "pointer",
+  },
+
+  activeButton: {
+    backgroundColor: "#b8f24b",
+    color: "#17211b",
+  },
+
+  chartFrame: {
+    width: "100%",
+    height: "300px",
   },
 };
 

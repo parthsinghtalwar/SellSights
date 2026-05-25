@@ -24,19 +24,24 @@ function SalesHistory({ sales }) {
 
   return (
     <div style={styles.innerCard}>
-      <h2 style={styles.title}>Sales History</h2>
+      <div style={styles.header}>
+        <div>
+          <p style={styles.kicker}>Sales</p>
+          <h2 style={styles.title}>Sales History</h2>
+        </div>
 
-      <select
-        style={styles.select}
-        value={selectedDate}
-        onChange={(e) => setSelectedDate(e.target.value)}
-      >
-        {dateOptions.map((date) => (
-          <option key={date} value={date}>
-            {new Date(date).toLocaleDateString()}
-          </option>
-        ))}
-      </select>
+        <select
+          style={styles.select}
+          value={selectedDate}
+          onChange={(e) => setSelectedDate(e.target.value)}
+        >
+          {dateOptions.map((date) => (
+            <option key={date} value={date}>
+              {new Date(date).toLocaleDateString()}
+            </option>
+          ))}
+        </select>
+      </div>
 
       <div style={styles.list}>
         {filteredSales.map((sale) => (
@@ -48,11 +53,11 @@ function SalesHistory({ sales }) {
                 {new Date(
                   sale.createdAt.seconds * 1000
                 ).toLocaleDateString()}{" "}
-                · qty {sale.quantitySold}
+                / qty {sale.quantitySold}
               </div>
             </div>
 
-            <div style={styles.revenue}>₹{sale.totalRevenue}</div>
+            <div style={styles.revenue}>Rs {sale.totalRevenue}</div>
           </div>
         ))}
       </div>
@@ -62,63 +67,76 @@ function SalesHistory({ sales }) {
 
 const styles = {
   innerCard: {
-    border: "3px solid #11172F",
-    borderRadius: "18px",
-    padding: "20px",
-    boxShadow: "5px 6px 0px #11172F",
-    backgroundColor: "#FDFBF4",
+    width: "100%",
+  },
+
+  header: {
+    display: "flex",
+    alignItems: "flex-start",
+    justifyContent: "space-between",
+    gap: "16px",
+    marginBottom: "16px",
+    flexWrap: "wrap",
+  },
+
+  kicker: {
+    margin: "0 0 8px",
+    color: "#8fdc22",
+    fontSize: "12px",
+    fontWeight: "800",
+    textTransform: "uppercase",
   },
 
   title: {
-    marginTop: "0",
-    marginBottom: "18px",
-    fontSize: "20px",
-    color: "#0A1430",
+    margin: "0",
+    fontSize: "22px",
+    color: "#17211b",
   },
 
   select: {
-    width: "100%",
+    minWidth: "190px",
     padding: "12px 14px",
-    marginBottom: "16px",
-    borderRadius: "10px",
-    border: "2px solid #11172F",
+    borderRadius: "14px",
+    border: "1px solid #dfe6d8",
     fontSize: "14px",
-    backgroundColor: "#FFFDF7",
-    color: "#0A1430",
+    backgroundColor: "#f8faf4",
+    color: "#17211b",
+    outline: "none",
   },
 
   list: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "12px",
+    display: "grid",
+    gap: "10px",
   },
 
   saleCard: {
-    border: "2px solid #11172F",
-    borderRadius: "14px",
+    border: "1px solid #e5eadf",
+    borderRadius: "16px",
     padding: "14px",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#FFFDF7",
+    gap: "16px",
+    backgroundColor: "#ffffff",
   },
 
   productName: {
-    fontWeight: "700",
-    fontSize: "16px",
-    color: "#0A1430",
+    fontWeight: "800",
+    fontSize: "15px",
+    color: "#17211b",
     marginBottom: "6px",
   },
 
   saleInfo: {
-    fontSize: "14px",
-    color: "#444B6E",
+    fontSize: "13px",
+    color: "#6d766f",
   },
 
   revenue: {
     fontWeight: "800",
-    fontSize: "16px",
-    color: "#0A1430",
+    fontSize: "15px",
+    color: "#17211b",
+    whiteSpace: "nowrap",
   },
 };
 

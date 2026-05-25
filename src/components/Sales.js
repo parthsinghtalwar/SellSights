@@ -141,7 +141,7 @@ function Sales({
         />
 
         <button style={styles.button} type="submit">
-          + Record Sale
+          Record Sale
         </button>
       </form>
     </div>
@@ -150,42 +150,40 @@ function Sales({
 
 const styles = {
   innerCard: {
-    border: "3px solid #11172F",
-    borderRadius: "18px",
-    padding: "20px",
-    boxShadow: "5px 6px 0px #11172F",
-    backgroundColor: "#FDFBF4",
+    width: "100%",
   },
 
   title: {
     marginTop: "0",
     marginBottom: "18px",
-    fontSize: "20px",
-    color: "#0A1430",
+    fontSize: "18px",
+    color: "#17211b",
   },
 
   input: {
     width: "100%",
-    padding: "12px 14px",
+    padding: "13px 14px",
     marginBottom: "12px",
-    borderRadius: "10px",
-    border: "2px solid #11172F",
+    borderRadius: "14px",
+    border: "1px solid #dfe6d8",
     fontSize: "14px",
     boxSizing: "border-box",
-    backgroundColor: "#FFFDF7",
-    color: "#0A1430",
+    backgroundColor: "#f8faf4",
+    color: "#17211b",
+    outline: "none",
   },
 
   button: {
     width: "100%",
-    padding: "13px",
+    padding: "14px",
     borderRadius: "999px",
     border: "none",
-    backgroundColor: "#11172F",
-    color: "#F7F3EA",
-    fontWeight: "700",
+    backgroundColor: "#b8f24b",
+    color: "#17211b",
+    fontWeight: "800",
     cursor: "pointer",
-    marginTop: "4px",
+    marginTop: "6px",
+    boxShadow: "0 12px 26px rgba(143, 220, 34, 0.22)",
   },
 };
 

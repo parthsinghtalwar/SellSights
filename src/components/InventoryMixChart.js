@@ -5,6 +5,7 @@ import {
   Pie,
   Cell,
   Tooltip,
+  ResponsiveContainer,
 } from "recharts";
 
 function InventoryMixChart({
@@ -21,53 +22,67 @@ function InventoryMixChart({
   );
 
   const COLORS = [
-    "#8884d8",
-    "#82ca9d",
-    "#ffc658",
-    "#ff8042",
-    "#00c49f",
+    "#8fdc22",
+    "#17211b",
+    "#a8b0aa",
+    "#d7dfcf",
+    "#b8f24b",
   ];
 
   return (
     <div>
 
-      <h3>Inventory Mix</h3>
+      <h3 style={styles.title}>Inventory Mix</h3>
 
-      <PieChart
-        width={350}
-        height={250}
-      >
+      <div style={styles.chartFrame}>
+        <ResponsiveContainer width="100%" height="100%">
+          <PieChart>
 
-        <Tooltip />
+            <Tooltip />
 
-        <Pie
-          data={pieData}
-          dataKey="value"
-          nameKey="name"
-          outerRadius={80}
-        >
+            <Pie
+              data={pieData}
+              dataKey="value"
+              nameKey="name"
+              outerRadius="76%"
+            >
 
-          {pieData.map(
-            (_, index) => (
+              {pieData.map(
+                (_, index) => (
 
-              <Cell
-                key={index}
-                fill={
-                  COLORS[
-                    index % COLORS.length
-                  ]
-                }
-              />
+                  <Cell
+                    key={index}
+                    fill={
+                      COLORS[
+                        index % COLORS.length
+                      ]
+                    }
+                  />
 
-            )
-          )}
+                )
+              )}
 
-        </Pie>
+            </Pie>
 
-      </PieChart>
+          </PieChart>
+        </ResponsiveContainer>
+      </div>
 
     </div>
   );
 }
+
+const styles = {
+  title: {
+    margin: "0 0 14px",
+    color: "#17211b",
+    fontSize: "16px",
+  },
+
+  chartFrame: {
+    width: "100%",
+    height: "260px",
+  },
+};
 
 export default InventoryMixChart;

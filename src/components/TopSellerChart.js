@@ -6,6 +6,7 @@ import {
   XAxis,
   YAxis,
   Tooltip,
+  ResponsiveContainer,
 } from "recharts";
 
 function TopSellerChart({
@@ -33,29 +34,43 @@ function TopSellerChart({
   return (
     <div>
 
-      <h3>Top Seller Units</h3>
+      <h3 style={styles.title}>Top Seller Units</h3>
 
-      <BarChart
-        width={350}
-        height={250}
-        data={topSellerData}
-      >
+      <div style={styles.chartFrame}>
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={topSellerData}>
 
-        <XAxis dataKey="name" />
+            <XAxis dataKey="name" tick={{ fontSize: 11 }} />
 
-        <YAxis />
+            <YAxis tick={{ fontSize: 11 }} />
 
-        <Tooltip />
+            <Tooltip />
 
-        <Bar
-          dataKey="units"
-          fill="#8884d8"
-        />
+            <Bar
+              dataKey="units"
+              fill="#8fdc22"
+              radius={[8, 8, 0, 0]}
+            />
 
-      </BarChart>
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
 
     </div>
   );
 }
+
+const styles = {
+  title: {
+    margin: "0 0 14px",
+    color: "#17211b",
+    fontSize: "16px",
+  },
+
+  chartFrame: {
+    width: "100%",
+    height: "260px",
+  },
+};
 
 export default TopSellerChart;

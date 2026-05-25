@@ -35,9 +35,9 @@ function StatsBar({ products, sales }) {
       <StatCard label="Products" value={formatNumber(totalProducts)} />
       <StatCard label="Sales" value={formatNumber(totalSales)} />
       <StatCard label="Units Sold" value={formatNumber(unitsSold)} />
-      <StatCard label="Revenue" value={`₹${formatNumber(totalRevenue)}`} />
-      <StatCard label="Profit" value={`₹${formatNumber(totalProfit)}`} />
-      <StatCard label="Stock Value" value={`₹${formatNumber(stockValue)}`} />
+      <StatCard label="Revenue" value={`Rs ${formatNumber(totalRevenue)}`} />
+      <StatCard label="Profit" value={`Rs ${formatNumber(totalProfit)}`} />
+      <StatCard label="Stock Value" value={`Rs ${formatNumber(stockValue)}`} />
     </div>
   );
 }
@@ -53,41 +53,40 @@ function StatCard({ label, value }) {
 
 const styles = {
   container: {
-    display: "flex",
-    gap: "18px",
-    marginBottom: "18px",
-    overflowX: "auto",
-    paddingBottom: "8px",
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))",
+    gap: "16px",
+    marginBottom: "22px",
   },
 
   card: {
-    backgroundColor: "#F7F3EA",
-    border: "3px solid #11172F",
-    borderRadius: "18px",
-    padding: "22px 26px",
-    minWidth: "220px",
-    minHeight: "115px",
-    boxSizing: "border-box",
-    boxShadow: "5px 6px 0px #11172F",
-    color: "#0A1430",
-    flexShrink: 0,
+    backgroundColor: "#ffffff",
+    border: "1px solid #e5eadf",
+    borderRadius: "22px",
+    padding: "20px",
+    minHeight: "118px",
+    boxShadow: "0 16px 38px rgba(26, 36, 28, 0.07)",
+    color: "#17211b",
+    position: "relative",
+    overflow: "hidden",
   },
 
   label: {
-    margin: "0 0 12px 0",
+    margin: "0 0 16px 0",
     fontSize: "12px",
     fontWeight: "800",
-    letterSpacing: "0.8px",
+    letterSpacing: "0",
     textTransform: "uppercase",
-    color: "#3A4568",
+    color: "#7a837d",
   },
 
   value: {
     margin: "0",
-    fontSize: "34px",
+    fontSize: "clamp(24px, 3vw, 32px)",
     fontWeight: "800",
-    color: "#0A1430",
-    lineHeight: "1.1",
+    color: "#17211b",
+    lineHeight: "1.08",
+    letterSpacing: "0",
   },
 };
 
